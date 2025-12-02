@@ -46,7 +46,31 @@ public class TrappingRainWater {
      * @return total water trapped
      */
     private int trap(int[] height) {
-        return 0;
+        private static int trap(int[] arr) {
+
+        int n = arr.length;
+        if(n<=2) return 0;
+        int[] prefix = new  int[n];
+        int[] postfix = new int[n];
+
+        //prefix traversal
+        prefix[0] = arr[0];
+        for(int i = 1; i<n; i++) {
+            prefix[i] = Math.max(prefix[i-1], arr[i]);
+        }
+
+
+        postfix[n-1] = arr[n-1];
+        for(int i = n-2; i>=0; i--) {
+            postfix[i] = Math.max(postfix[i+1], arr[i]);
+        }
+
+        int result = 0;
+        for(int i=1; i<n-1; i++) {
+            result += Math.min(prefix[i], postfix[i]) - arr[i];
+        }
+        return result;
+    }
     }
 }
 
